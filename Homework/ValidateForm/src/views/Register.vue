@@ -147,9 +147,9 @@
               if (!this.username) {
                   this.validation.invalid.username = 'Please enter your username.'
               } else if (this.username.length < 2) {
-                  this.validation.invalid.username = 'username should have min. 2 characters.'
+                  this.validation.invalid.username = 'Username should have min. 2 characters.'
               } else if (this.username.match(/[^a-z]/i)) {
-                  this.validation.invalid.username = 'username should contains only latin letters (a-z).'
+                  this.validation.invalid.username = 'Username should contains only latin letters (a-z).'
               } else {
                   this.validation.valid.username = 'Username is ready.'
               }
