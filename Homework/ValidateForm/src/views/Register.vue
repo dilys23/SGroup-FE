@@ -117,9 +117,9 @@ export default {
                  this.validation.valid.email = ''
                 this.validation.invalid.email = 'Please enter your email.'
             }
-             else if (this.email.match( /[^[^\s@]+@[^\s@]+\.[^\s@]+$]/i)) {
+             else if (!this.email.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
                  this.validation.valid.email = ''
-                this.validation.invalid.email = 'Email should correct format.'
+                this.validation.invalid.email = 'Email should be in correct format.'
             } else {
                  this.validation.invalid.email = ''
                 this.validation.valid.email = 'Email is ready.'
