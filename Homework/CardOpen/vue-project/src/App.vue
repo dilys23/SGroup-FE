@@ -1,8 +1,13 @@
 <script setup>
-import { ref, provide } from 'vue';
+import { ref, provide, watchEffect } from 'vue';
 import CardDetail from './components/Card/CardDetail.vue';
 import ButtonSlots from './components/Button/ButtonSlots.vue';
 import Avatar from './components/Avatar/Avatar.vue';
+import Computed from './Computed.vue';
+import VModelForm from './VModelForm.vue';
+import TemplateRefs from './TemplateRefs.vue';
+import ComponentVModel from './ComponentVModel.vue';
+import ButtonSlot from './components/Button/Slot.vue';
 const listCard = ref([
   {
     id: 1,
@@ -45,6 +50,26 @@ function updateAvatar(){
 }
 // Cập nhật link ảnh avatar
 const imgLink = ref('https://lenguyen/2312');
+// Đối số trong Component-V-Model 
+// có thể sử dụng nhiều đối số để binding trong component con 
+const email1 = ref("")
+const username = ref("")
+watchEffect(() =>
+{
+  console.log(email1.value)
+})
+const changeEmailDefaultFromParent = () =>
+{
+  email1.value = "dilysnguyen@gmail.com   "
+}
+watchEffect(() =>
+{
+  console.log(email1.value)
+})
+const changeUsernameDefaultFromParent = () =>
+{
+  username.value = "dilysnguyen   "
+}
 // provide("imgLink", imgLink);
 </script>
 
@@ -64,9 +89,33 @@ const imgLink = ref('https://lenguyen/2312');
     @updateAvatar = "updateAvatar"
     :imgLink="'https://lenguyen/2312'"/>
   <Avatar />
-  <ButtonSlots>
-    <template> #title</template>
+  
+
+  <div>
+    <h3>Table Product</h3>
+    <ButtonSlots>
+    <template  #body="props">
+      <template v-for="(item,index) in props.data" :key="index">
+        <a>{{ item.title }}</a>
+				<p>{{ item.content }}</p>
+
+      </template> </template>
   </ButtonSlots>
+  </div>
+  <Computed/>
+  <VModelForm/>
+  <TemplateRefs/>
+  <ButtonSlot>
+    <template #save>Save</template>
+    <template #delete>Delete</template>
+    <template #update>Update</template>
+  </ButtonSlot>
+  <!-- <ComponentVModel v-model:email="email1"  v-model:username="username"/> -->
+   <!-- Thực hiện modifier cho component vmodel  -->
+  <ComponentVModel v-model:email="email1"  v-model:username.capitalize="username"/>
+
+  <button @click="changeEmailDefaultFromParent">Change email</button>
+  <button @click="changeUsernameDefaultFromParent">Change username</button>
 </template>
 
 <style scoped>
